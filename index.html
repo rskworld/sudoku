@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSK World Sudoku Game</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container-fluid sudoku-game">
+        <header class="text-center my-4 position-relative">
+            <h1 class="display-4 slide-in">RSK World Sudoku</h1>
+            <div class="top-nav-buttons position-absolute top-0 end-0 mt-2 me-3">
+                <a href="https://rskworld.in" target="_blank" class="btn btn-outline-primary me-2" title="Visit Website">
+                    <i class="fas fa-globe"></i>
+                </a>
+                <a href="mailto:help@rskworld.in" class="btn btn-outline-secondary" title="Send Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+        </header>
+        
+        <div id="error-display" class="alert alert-danger text-center" style="display:none;">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            <span>An unexpected error occurred</span>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="game-settings text-center mb-3">
+                    <span id="current-level" class="me-3 h5">Level: 1</span>
+                    <button id="music-toggle" class="btn btn-secondary ms-2">
+                        <i class="fas fa-volume-mute"></i>
+                    </button>
+                </div>
+                
+                <div id="sudoku-board" class="sudoku-board slide-in"></div>
+                
+                <div class="game-controls mt-4 text-center">
+                    <button id="new-game" class="btn btn-primary me-2">
+                        <i class="fas fa-plus-circle"></i> New Game
+                    </button>
+                    <button id="solve-game" class="btn btn-success me-2">
+                        <i class="fas fa-magic"></i> Solve
+                    </button>
+                    <button id="check-game" class="btn btn-warning">
+                        <i class="fas fa-check-circle"></i> Check
+                    </button>
+                </div>
+                
+                <!-- Game Feedback Area -->
+                <div id="game-feedback" class="text-center my-3" style="display:none;"></div>
+            </div>
+        </div>
+        
+        <!-- Congratulations Modal -->
+        <div class="modal fade" id="congratsModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Congratulations!</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <i class="fas fa-trophy fa-4x text-warning mb-3"></i>
+                        <p>You've successfully solved the Sudoku puzzle!</p>
+                        <button class="btn btn-primary" data-bs-dismiss="modal">Play Again</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Audio Elements -->
+    <audio id="clickSound" src="sounds/click.mp3"></audio>
+    <audio id="successSound" src="sounds/success.mp3"></audio>
+    <audio id="errorSound" src="sounds/error.mp3"></audio>
+    <audio id="hintSound" src="sounds/hint.mp3"></audio>
+    <audio id="backgroundMusic" src="sounds/background.mp3"></audio>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
