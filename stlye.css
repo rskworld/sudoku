@@ -1,0 +1,190 @@
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    overscroll-behavior: none;
+    user-select: none;
+    touch-action: none;
+}
+
+/* Container Styles */
+.container-fluid {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Title Styles */
+h1 {
+    color: #2c3e50;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Game Stats Styles */
+.game-stats {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.game-stats .badge {
+    font-size: 16px;
+    margin: 0 10px;
+    padding: 10px;
+}
+
+/* Game Board Styles */
+#game-board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    max-width: 400px;
+    margin: 0 auto;
+    perspective: 1000px;
+}
+
+.puzzle-tile {
+    background-color: #3498db;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    aspect-ratio: 1 / 1;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.puzzle-tile:hover {
+    transform: scale(1.05);
+    background-color: #2980b9;
+}
+
+.puzzle-tile.empty {
+    background-color: transparent;
+    cursor: default;
+    box-shadow: none;
+}
+
+.puzzle-tile.correct {
+    background-color: #2ecc71;
+    animation: correct-tile 0.5s ease;
+}
+
+@keyframes correct-tile {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Controls Styles */
+.controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.controls button {
+    margin: 0 10px;
+    padding: 10px 15px;
+    font-size: 18px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.controls button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.controls button i {
+    font-size: 20px;
+}
+
+/* Card Styles */
+.card {
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-title {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.card ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.card ul li {
+    padding: 5px 0;
+    border-bottom: 1px solid #ecf0f1;
+}
+
+.card ul li:last-child {
+    border-bottom: none;
+}
+
+/* Modal Styles */
+.modal-content {
+    border-radius: 15px;
+}
+
+.modal-header {
+    background-color: #3498db;
+    color: white;
+}
+
+.modal-body h6 {
+    color: #2c3e50;
+    margin-top: 15px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #game-board {
+        max-width: 300px;
+        gap: 5px;
+    }
+
+    .puzzle-tile {
+        font-size: 18px;
+    }
+
+    .controls button {
+        margin: 0 5px;
+        padding: 8px 12px;
+        font-size: 16px;
+    }
+}
+
+/* Accessibility and Touch Improvements */
+* {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}
+
+/* Animations */
+.animate__animated {
+    animation-duration: 0.5s;
+}
