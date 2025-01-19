@@ -2,153 +2,98 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RSKWORLD Sliding Puzzle Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSK World Sudoku Game</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
-    <!-- Font Awesome for Icons -->
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- Animate.css for Animations -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    
-    <!-- Toastr for Notifications -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    
-    <!-- Sweet Alert for Modals -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="stlye.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container-fluid">
+    <div class="container-fluid sudoku-game">
+        <header class="text-center my-4 position-relative">
+            <h1 class="display-4 slide-in">RSK World Sudoku</h1>
+            <div class="top-nav-buttons position-absolute top-0 end-0 mt-2 me-3">
+                <a href="https://rskworld.in" target="_blank" class="btn btn-outline-primary me-2" title="Visit Website">
+                    <i class="fas fa-globe"></i>
+                </a>
+                <a href="mailto:help@rskworld.in" class="btn btn-outline-secondary" title="Send Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+        </header>
+        
+        <div id="error-display" class="alert alert-danger text-center" style="display:none;">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            <span>An unexpected error occurred</span>
+        </div>
+        
         <div class="row">
-            <div class="col-12">
-                <h1 class="text-center my-4 animate__animated animate__fadeIn">RSKWORLD Sliding Puzzle Game</h1>
+            <div class="col-md-8 mx-auto">
+                <div class="game-settings text-center mb-3">
+                    <span id="current-level" class="me-3 h5">Level: 1</span>
+                    <button id="music-toggle" class="btn btn-secondary ms-2">
+                        <i class="fas fa-volume-mute"></i>
+                    </button>
+                </div>
+                
+                <div id="sudoku-board" class="sudoku-board slide-in"></div>
+                
+                <div class="game-controls mt-4 text-center">
+                    <button id="new-game" class="btn btn-primary me-2">
+                        <i class="fas fa-plus-circle"></i> New Game
+                    </button>
+                    <button id="solve-game" class="btn btn-success me-2">
+                        <i class="fas fa-magic"></i> Solve
+                    </button>
+                    <button id="check-game" class="btn btn-warning">
+                        <i class="fas fa-check-circle"></i> Check
+                    </button>
+                </div>
+                
+                <!-- Game Feedback Area -->
+                <div id="game-feedback" class="text-center my-3" style="display:none;"></div>
             </div>
         </div>
         
-        <div class="row justify-content-center">
-            <div class="col-md-8 text-center">
-                <div class="game-stats mb-3 animate__animated animate__slideInDown">
-                    <span id="level-display" class="badge bg-info me-2">Level: 1</span>
-                    <span id="moves-counter" class="badge bg-secondary me-2">Moves: 0</span>
-                    <span id="high-score-display" class="badge bg-success">High Score: 0</span>
-                </div>
-                
-                <div id="game-board" class="mb-4 animate__animated animate__zoomIn"></div>
-                
-                <div class="controls animate__animated animate__fadeInUp">
-                    <button id="play-btn" class="btn btn-success me-2" title="New Game">
-                        <i class="fas fa-play"></i>
-                    </button>
-                    <button id="shuffle-btn" class="btn btn-primary me-2" title="Shuffle Puzzle">
-                        <i class="fas fa-random"></i>
-                    </button>
-                    <button id="sfx-btn" class="btn btn-warning me-2" title="Toggle Sound Effects">
-                        <i class="fas fa-volume-up" id="sfx-icon"></i>
-                    </button>
-                    <button id="music-btn" class="btn btn-info me-2" title="Toggle Background Music">
-                        <i class="fas fa-music" id="music-icon"></i>
-                    </button>
-                    <button id="help-btn" class="btn btn-secondary" title="Game Instructions">
-                        <i class="fas fa-question-circle"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        
-        <div class="row mt-5">
-            <div class="col-12">
-                <div class="card animate__animated animate__fadeInLeft">
-                    <div class="card-body">
-                        <h5 class="card-title">🚀 Game Features</h5>
-                        <ul>
-                            <li>Dynamic Difficulty Progression</li>
-                            <li>Advanced Shuffling Algorithm</li>
-                            <li>Touch and Click Support</li>
-                            <li>High Score Tracking</li>
-                            <li>Immersive Sound Experience</li>
-                        </ul>
+        <!-- Congratulations Modal -->
+        <div class="modal fade" id="congratsModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Congratulations!</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="row mt-3">
-            <div class="col-12">
-                <div class="card animate__animated animate__fadeInRight">
-                    <div class="card-body">
-                        <h5 class="card-title">🌈 Upcoming Enhancements</h5>
-                        <ul>
-                            <li>Online Multiplayer Mode</li>
-                            <li>Global Leaderboard</li>
-                            <li>Customizable Themes</li>
-                            <li>Time Challenge Mode</li>
-                            <li>Achievement System</li>
-                        </ul>
+                    <div class="modal-body text-center">
+                        <i class="fas fa-trophy fa-4x text-warning mb-3"></i>
+                        <p>You've successfully solved the Sudoku puzzle!</p>
+                        <button class="btn btn-primary" data-bs-dismiss="modal">Play Again</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Modal for Game Help -->
-    <div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="helpModalLabel">🧩 How to Play</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <h6>Game Objective:</h6>
-                    <p>Rearrange the tiles to create a sequential order from 1 to 15.</p>
-                    
-                    <h6>Game Mechanics:</h6>
-                    <ul>
-                        <li>Click or swipe tiles adjacent to the empty space</li>
-                        <li>Use "Shuffle" to randomize the puzzle</li>
-                        <li>Track your moves and improve your strategy</li>
-                    </ul>
-                    
-                    <h6>Pro Tips:</h6>
-                    <ul>
-                        <li>Plan moves strategically</li>
-                        <li>Observe tile patterns</li>
-                        <li>Challenge yourself to reduce move count</li>
-                    </ul>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    
     <!-- Audio Elements -->
-    <audio id="move-sound" src="sounds/move.mp3"></audio>
-    <audio id="win-sound" src="sounds/win.mp3"></audio>
-    <audio id="background-music" src="sounds/background.mp3" loop></audio>
-    <audio id="button-click-sound" src="sounds/button-click.mp3"></audio>
-
+    <audio id="clickSound" src="sounds/click.mp3"></audio>
+    <audio id="successSound" src="sounds/success.mp3"></audio>
+    <audio id="errorSound" src="sounds/error.mp3"></audio>
+    <audio id="hintSound" src="sounds/hint.mp3"></audio>
+    <audio id="backgroundMusic" src="sounds/background.mp3"></audio>
+    
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+    
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Toastr Notifications -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    
-    <!-- Sweet Alert -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
-    
-    <!-- Lodash for Advanced Utilities -->
-    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
     
     <!-- Custom JavaScript -->
     <script src="script.js"></script>
